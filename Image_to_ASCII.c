@@ -33,15 +33,16 @@ int main()
         return 1;
     }
 
-    int brightness_index; // making this varibale to store brightness , thats all
+    int brightness; // making this varibale to store brightness , thats all
 
     for (int rows = 0; rows < (width); rows++)
     {
         for (int columns = 0; columns < height; columns++)
         {
             // Now we calculate pixel index , so basically pixel index is like finding out the actual pixel whose brightness will be found by us later on . and it has got this formula
-            int pixel_index = ((rows * width) + columns) * 3;                                                            // so basically row * width tell us the horizonatal position and adding columns tells us the vertical position .  later we multiply with 3 because each pixl has 3 channels i.e r , g , b
-            brightness_index = calculate_brightness(image[pixel_index], image[pixel_index + 1], image[pixel_index + 2]); // here , we are sending the r , g , b value of the pixel to calucualte the brightness;
+            int pixel_index = ((rows * width) + columns) * required_channel;                                       // so basically row * width tell us the horizonatal position and adding columns tells us the vertical position .  later we multiply with 3 because each pixl has 3 channels i.e r , g , b
+            brightness = calculate_brightness(image[pixel_index], image[pixel_index + 1], image[pixel_index + 2]); // here , we are sending the r , g , b value of the pixel to calucualte the brightness;
+            int brightness_index = (brightness * 10) / 256;
             printf("%c", ascii_symbols[brightness_index]);
         }
         printf("\n");
