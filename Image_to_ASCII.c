@@ -1,4 +1,4 @@
-#define STB_IMAGE_IMPLEMENTATION // Defining this marco , so that i could use (along with its implementation)
+#define STB_IMAGE_IMPLEMENTATION // Defining this macro , so that i could use (along with its implementation)
 #include "stb_image.h"           // I am including this header file/library to use the image realted function
 #include <stdio.h>               // This is the standard library which we use to do normal stuff like print and more;
 #include <conio.h>               // I am including this funciton to use getch , so that the program doesnt close itself in a blink if i open the exe file via double click
@@ -35,18 +35,19 @@ int main()
 
     int brightness; // making this varibale to store brightness , thats all
 
-    for (int rows = 0; rows < (width); rows++)
+    for (int rows = 0; rows < (height); rows++)
     {
-        for (int columns = 0; columns < height; columns++)
+        for (int columns = 0; columns < width; columns++)
         {
             // Now we calculate pixel index , so basically pixel index is like finding out the actual pixel whose brightness will be found by us later on . and it has got this formula
-            int pixel_index = ((rows * width) + columns) * required_channel;                                       // so basically row * width tell us the horizonatal position and adding columns tells us the vertical position .  later we multiply with 3 because each pixl has 3 channels i.e r , g , b
+            int pixel_index = ((rows * width) + columns) * required_channel;                                       // so basically row * width takes us to the end of pixel block preceeding the current position and adding columns takes us forward to the current position horizontally .  later we multiply with 3 because each pixl has 3 channels i.e r , g , b
             brightness = calculate_brightness(image[pixel_index], image[pixel_index + 1], image[pixel_index + 2]); // here , we are sending the r , g , b value of the pixel to calucualte the brightness;
             int brightness_index = (brightness * 10) / 256;
             printf("%c", ascii_symbols[brightness_index]);
         }
         printf("\n");
     }
+    stbi_image_free(image); // freeing the gathered image , good for memory
     _getch();
 
     return 0;
