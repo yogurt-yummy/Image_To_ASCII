@@ -17,12 +17,16 @@ int calculate_brightness(int red, int green, int blue)
 int main()
 {
 
+    char file_name[100];
+    printf("Enter your image name along with its extension : ");
+    gets(file_name);
+
     int width;                      // for the width of image
     int height;                     // for the height of image
     const int required_channel = 3; // this is the number of channel we will use . 3 -> rgb
     int original_channel;           // here i am representing original channel to the number of channel of the actual image (the real property)
 
-    unsigned char *image = stbi_load("image.jpg", &width, &height, &original_channel, required_channel); // using this function , we get the info about the image , here i am taking my image.jpg
+    unsigned char *image = stbi_load(file_name, &width, &height, &original_channel, required_channel); // using this function , we get the info about the image , here i am taking my image.jpg
 
     const char ascii_symbols[10] = " .:-=+*#%@"; // these are the symbols usually used for the ascii representation in the image (chatgpt told me this)
 
@@ -30,6 +34,8 @@ int main()
     if (image == NULL)
     {
         printf("Error opening the image file -> %s ", stbi_failure_reason()); // stbi_failure_reason give is the reason of the failing
+        printf("\nPress any key to close the program...");
+        _getch();
         return 1;
     }
 
@@ -47,7 +53,7 @@ int main()
         }
         printf("\n");
     }
-    stbi_image_free(image); // freeing the gathered image , good for memory
+    stbi_image_free(image); // freeing the image , good for memory
     _getch();
 
     return 0;
